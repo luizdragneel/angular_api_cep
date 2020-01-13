@@ -16,6 +16,7 @@ export class CepComponent implements OnInit {
   }
 
   buscar(){
-    this.cepService.buscar(this.cep.cep);
+    this.cepService.buscar(this.cep.cep)
+      .then((cep:Cep) => this.cep = cep)
   }
 }

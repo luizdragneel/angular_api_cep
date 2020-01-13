@@ -10,10 +10,13 @@ export class CepService {
   constructor(private http:Http) { }
 
   buscar(cep: string){
-    return this.http.get(`https://viacep.com.br/ws/${cep}/json/`)
-      .subscribe((result:any) => {
-        return this.recuperarDados(result.json());
-      });
+    return new Promise((resolve, reject) => {
+      this.http.get(`https://viacep.com.br/ws/${cep}/json/`)
+        .subscribe((result:any) => {
+          resolve(this.recuperarDados(result.json()));
+        })
+    })
+    
   }
 
   recuperarDados(cepRes):Cep{
@@ -22,8 +25,8 @@ export class CepService {
     cep.logradouro = cepRes.logradouro;
     cep.complemento = cepRes.complemento;
     cep.bairro = cepRes.bairro;
-    cep.cidade = cepRes.cidade;
-    cep.estado = cepRes.estado;
+    cep.localidade = cepRes.localidade;
+    cep.uf = cepRes.uf;
     return cep;
   }
 }
