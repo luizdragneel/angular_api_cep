@@ -18,5 +18,8 @@ export class CepComponent implements OnInit {
   buscar(){
     this.cepService.buscar(this.cep.cep)
       .then((cep:Cep) => this.cep = cep)
+      .catch((cep:Cep) => {
+        alert('Não foi possivel buscar o cep');
+      })
   }
 }

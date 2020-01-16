@@ -14,7 +14,10 @@ export class CepService {
       this.http.get(`https://viacep.com.br/ws/${cep}/json/`)
         .subscribe((result:any) => {
           resolve(this.recuperarDados(result.json()));
-        })
+        },
+      (error) => {
+        reject(error.json());
+      })
     })
     
   }
